@@ -9,24 +9,74 @@ public class ChessBoard {
     private Piece [][] board;
     private int whitePoint;
     private int blackPoint;
+    
     public ChessBoard(){
         board = new Piece[8][8];
+        
+        this.whitePoint = 0;
+        this.blackPoint = 0;
+        // arrange pawns
         for(int i = 0 ; i < 8 ; i++){
             this.board[1][i] = new Pawn('w', 1, i);
             this.board[6][i] = new Pawn('b', 6, i);
         }
+        
+        // arrange rooks
+        this.board[0][0] = new Rook('w', 0, 0);
+        this.board[0][7] = new Rook('w', 0, 7);
+
+        this.board[7][7] = new Rook('b', 7, 7);
+        this.board[7][0] = new Rook('b', 7, 0);
+        
+        // arrange Bishop
+        this.board[0][2] = new Bishop('w', 0, 2);
+        this.board[0][5] = new Bishop('w', 0, 5);
+        this.board[7][2] = new Bishop('b', 7, 2);
+        this.board[7][5] = new Bishop('b', 7, 5);
+        
+        // arrange Queen
+        this.board[0][4] = new Queen('w', 0, 4);
+        this.board[7][4] = new Queen('b', 7, 4);
+        
+        // arrange Knight
+        this.board[0][1] = new Knight('w', 0, 2);
+        this.board[0][6] = new Knight('w', 0, 6);
+        this.board[7][1] = new Knight('b', 7, 2);
+        this.board[7][6] = new Knight('b', 7, 6);
+        
+        // arrange King
+        this.board[0][3] = new King('w', 0, 3);
+        this.board[7][3] = new King('b', 7, 3);
     }
     
     public void displayBoard(){
+        System.out.print("  ");
+        for(int i = 0 ; i < 8 ; i++){
+            System.out.print(" " + i + " ");
+        }
+        System.out.println();
         for(int i = 0; i < 8 ; i++){
+            System.out.print(i + " ");
             for(int j = 0; j < 8 ; j++){
                 if(board[i][j] == null)
                     System.out.print(" * ");
                 else 
                     System.out.print(" " + this.board[i][j].getSymbol() + " ");
             }
+            System.out.print(" "+ i);
             System.out.println();
         }
+        System.out.print("  ");
+        for(int i = 0 ; i < 8 ; i++){
+            System.out.print(" " + i + " ");
+        }
+    }
+    
+    public void increamentPoints(char color, int points){
+        if(color == 'w')
+            this.whitePoint += points;
+        else 
+            this.blackPoint += points;
     }
     
     public Piece getPiece(int x, int y){
@@ -39,6 +89,10 @@ public class ChessBoard {
     
     private boolean isValidSquare(int x, int y){
         // check whether the square is occupied or not
+        return this.board[x][y] == null;
+    }
+    
+    public boolean isFreeSquare(int x, int y){
         return this.board[x][y] == null;
     }
     
@@ -99,7 +153,6 @@ public class ChessBoard {
             switch(ch){
                 case 1 -> {
                     // Queen : create new instance of Queen and delete the pawn object
-
                 }
                 case 2 -> {
                     // Rook

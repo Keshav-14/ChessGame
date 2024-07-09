@@ -15,9 +15,7 @@ public class Pawn extends Piece{
     // call like board[x][y].move()
     public void move(ChessBoard board, int x, int y){
         // check for valid move
-        
-//        this.board[newx][newy] = this.board[x][y];
-//            this.board[x][y] = null;
+
         board.setPiece(this.x, this.y, null);
         board.setPiece(x, y, this);
     }
